@@ -1,5 +1,6 @@
 package org.example;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +17,7 @@ public class Employee {
 
     @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name = "department_id" , referencedColumnName = "id")
+    @JsonBackReference
     private Department department ;
 
     public Employee(){
