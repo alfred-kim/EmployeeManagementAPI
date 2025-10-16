@@ -3,33 +3,43 @@ package org.example;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 public class LeaveRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id ;
+    private int id;
 
 
-    private String startDate ;
-    private String endDate ;
-    private String reason ;
-    private String status ;
+    private String employeeName;
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+    private String reason;
+
+    @Enumerated(EnumType.STRING)
+    private leaveStatus status;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     @JsonBackReference
-    private Employee employee ;
+    private Employee employee;
 
-    public LeaveRequest(){
+    public LeaveRequest() {
 
     }
 
-    public LeaveRequest(String startDate , String endDate , String reason , String status){
+    public LeaveRequest(String employeeName , LocalDate startDate , LocalDate endDate , String reason , Employee employee  ){
+        this.employeeName = employeeName ;
         this.startDate = startDate ;
-        this.endDate = endDate ;
+        this.endDate =endDate ;
         this.reason = reason ;
-        this.status = status ;
+        this.employee = employee ;
+        this.status = leaveStatus.PENDING ;
+
     }
 
     public int getId() {
@@ -40,19 +50,27 @@ public class LeaveRequest {
         this.id = id;
     }
 
-    public String getStartDate() {
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -64,11 +82,11 @@ public class LeaveRequest {
         this.reason = reason;
     }
 
-    public String getStatus() {
+    public leaveStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(leaveStatus status) {
         this.status = status;
     }
 
@@ -80,3 +98,4 @@ public class LeaveRequest {
         this.employee = employee;
     }
 }
+
