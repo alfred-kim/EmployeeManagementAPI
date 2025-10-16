@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 
 @Entity
 public class Employee {
@@ -17,7 +19,7 @@ public class Employee {
     private int id ;
     private String name ;
     private String email ;
-    private String joinDate ;
+    private LocalDate joinDate ;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -49,7 +51,7 @@ public class Employee {
 
     }
 
-    public Employee(String name , String email , String joinDate){
+    public Employee(String name , String email , LocalDate joinDate){
         this.name = name ;
         this.email = email ;
         this.joinDate = joinDate ;
@@ -79,11 +81,11 @@ public class Employee {
         this.email = email;
     }
 
-    public String getJoinDate() {
+    public LocalDate getJoinDate() {
         return joinDate;
     }
 
-    public void setJoinDate(String joinDate) {
+    public void setJoinDate(LocalDate joinDate) {
         this.joinDate = joinDate;
     }
 
